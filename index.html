@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Генератор Календаря</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+        }
+
+        #yearSelector {
+            display: block;
+            margin: 0 auto 20px auto;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .calendar-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .month {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 10px;
+            width: 280px;
+            box-shadow: 2px 2px 12px #aaa;
+        }
+
+        .month-name {
+            background-color: #f2f2f2;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            border-bottom: 1px solid #ccc;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 0;
+        }
+
+        td {
+            height: 30px;
+            text-align: center;
+            padding: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .empty {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Генератор Календаря</h1>
+    <label for="yearSelector">
+        <h2>Выберите год:</h2>
+    </label>
+    <select id="yearSelector">
+        <option value="">--Выберите год--</option>
+    </select>
+
+    <div id="calendar" class="calendar-container"></div>
+
+    <script>
+        // Заполнение селектора годов с 2000 по 2050
+        const yearSelector = document.getElementById('yearSelector');
+        for (let year = 2000; year <= 2050; year++) {
+            let option = document.createElement('option');
+            option.value = year;
+            option.text = year;
+            yearSelector.appendChild(option);
+        }
+
+        // Массив названий месяцев на русском
+        const monthNames = [
+            "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+            "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
+        ];
+
+        // Массив названий дней недели на русском, начиная с понедельника
+        const dayNames = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+
+        // Обработчик события при выборе года
+        yearSelector.addEventListener('change', function () {
+            const selectedYear = parseInt(this.value);
+            if (selectedYear >= 2000 && selectedYear <= 2050) {
+                generateCalendar(selectedYear);
+            } else {
+                document.getElementById('calendar').innerHTML = '';
+            }
+        });
+
+        // Функция для генерации календаря на выбранный год
+        function generateCalendar(year) {
+            const calendarDiv = document.getElementById('calendar');
+            calendarDiv.innerHTML = ''; // Очистка предыдущего календаря
+
+            for (let month = 0; month < 12; month++) {
+                // Создание контейнера для месяца
+                let monthDiv = document.createElement('div');
+                monthDiv.className = 'month';
+
+                // Название месяца и года
+                let monthName = document.createElement('div');
+                monthName.className = 'month-name';
+                monthName.textContent = monthNames[month] + ' ' + year;
+                monthDiv.appendChild(monthName);
+
+                // Создание таблицы для месяца
+                let table = document.createElement('table');
+
+                // Создание заголовка таблицы с названиями дней недели
+                let thead = document.createElement('thead');
+                let headerRow = document.createElement('tr');
+                dayNames.forEach(day => {
+                    let th = document.createElement('th');
+                    th.textContent = day;
+                    headerRow.appendChild(th);
+                });
+                thead.appendChild(headerRow);
+                table.appendChild(thead);
+
+                // Создание тела таблицы с датами
+                let tbody = document.createElement('tbody');
+                let firstDay = new Date(year, month, 1).getDay();
+                // Корректировка: В JavaScript Sunday = 0, Monday = 1, ..., Saturday = 6
+                // Поскольку мы начинаем неделю с понедельника, сдвинем индекс
+                firstDay = (firstDay === 0) ? 6 : firstDay - 1;
+                let daysInMonth = new Date(year, month + 1, 0).getDate();
+
+                let date = 1;
+                for (let i = 0; i < 6; i++) { // Максимум 6 недель в месяце
+                    let row = document.createElement('tr');
+
+                    for (let j = 0; j < 7; j++) {
+                        let cell = document.createElement('td');
+                        if (i === 0 && j < firstDay) {
+                            cell.className = 'empty';
+                            cell.textContent = '';
+                        } else if (date > daysInMonth) {
+                            cell.className = 'empty';
+                            cell.textContent = '';
+                        } else {
+                            cell.textContent = date;
+                            date++;
+                        }
+                        row.appendChild(cell);
+                    }
+
+                    tbody.appendChild(row);
+
+                    if (date > daysInMonth) {
+                        break;
+                    }
+                }
+
+                table.appendChild(tbody);
+                monthDiv.appendChild(table);
+                calendarDiv.appendChild(monthDiv);
+            }
+        }
+    </script>
+
+</body>
+
+</html>
