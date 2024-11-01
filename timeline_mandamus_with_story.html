@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мандамус с поданой историей</title>
+    <title>Убежище</title>
     <!-- Add Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="styles.css">
 
     <!-- Add jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -14,155 +16,35 @@
     <!-- Add Bootstrap JS and Popper.js -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Add html2canvas library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 
     <style>
-        body {
-            background-color: #eee;
-        }
-
-        .mt-70 {
-            margin-top: 70px;
-        }
-
-        .mb-70 {
-            margin-bottom: 70px;
-        }
-
-        .card {
-            box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03),
-                0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03),
-                0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05),
-                0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
-            border-width: 0;
-            transition: all .2s;
-        }
-
-        .card {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-            word-wrap: break-word;
-            background-color: #fff;
-            background-clip: border-box;
-            border: 1px solid rgba(26, 54, 126, 0.125);
-            border-radius: .25rem;
-        }
-
-        .card-body {
-            flex: 1 1 auto;
-            padding: 1.25rem;
-        }
-
-        .vertical-timeline {
-            width: 100%;
-            position: relative;
-            padding: 1.5rem 0 1rem;
-        }
-
-        /*vertical line*/
-        .vertical-timeline::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 107px;
-            height: 100%;
-            width: 4px;
-            background: #e9ecef;
-            border-radius: .25rem;
-        }
-
-        .vertical-timeline-element {
-            position: relative;
-            margin: 0 0 1rem;
-        }
-
-        .vertical-timeline--animate .vertical-timeline-element-icon.bounce-in {
-            visibility: visible;
-            animation: cd-bounce-1 .8s;
-        }
-
-        .vertical-timeline-element-icon {
-            position: absolute;
-            top: 0;
-            left: 100px;
-        }
-
-        .vertical-timeline-element-icon .badge-dot-xl {
-            box-shadow: 0 0 0 5px #fff;
-        }
-
-        .badge-dot-xl {
-            width: 18px;
-            height: 18px;
-            position: relative;
-        }
-
-        .badge:empty {
-            display: none;
-        }
-
-        .badge-dot-xl::before {
-            content: '';
-            width: 10px;
-            height: 10px;
-            border-radius: .25rem;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            margin: -5px 0 0 -5px;
-            background: #fff;
-        }
-
-        /*Main blocks*/
-        .vertical-timeline-element-content {
-            position: relative;
-            margin-left: 160px;
-            font-size: .8rem;
-        }
-
-        .vertical-timeline-element-content .timeline-title {
-            font-size: .8rem;
-            text-transform: uppercase;
-            margin: 0 0 .5rem;
-            padding: 2px 0 0;
-            font-weight: bold;
-        }
-
-        .vertical-timeline-element-content .vertical-timeline-element-date {
-            display: block;
-            position: absolute;
-            left: -160px;
-            top: 0;
-            padding-right: 10px;
-            text-align: right;
-            color: gray;
-            font-size: .7619rem;
-            white-space: nowrap;
-        }
-
-        .vertical-timeline-element-content:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
     </style>
 </head>
 
 <body>
 
     <div class="row d-flex justify-content-center mt-70 mb-70">
-
         <div class="col-md-6">
-
             <div class="main-card mb-3 card">
-                <div class="card-body">
-                    <h5 class="card-title">Мандамус с поданой историей</h5>
+                <div class="card-body" id="timeline-card" style="position: relative;">
+
+                    <!-- Download Button Positioned on Top Right of Timeline Section -->
+                    <button id="download-btn" class="btn btn-primary" onclick="downloadTimelineScreenshot()"
+                        style="position: absolute; top: 10px; right: -50px; z-index: 1;">
+                        ⬇️
+                    </button>
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <h5 class="card-title">Мандамус с поданой историей</h5>
+                    </div>
                     <div class="vertical-timeline vertical-timeline--animate vertical-timeline--one-column">
                         <div class="vertical-timeline-item vertical-timeline-element">
                             <div>
                                 <span class="vertical-timeline-element-icon bounce-in">
-                                    <i class="badge badge-dot badge-dot-xl badge-warning"> </i>
+                                    <i class="badge badge-dot badge-dot-xl badge-danger"> </i>
                                 </span>
                                 <div class="vertical-timeline-element-content bounce-in">
                                     <h4 class="timeline-title">Начало работы</h4>
@@ -177,7 +59,7 @@
                         <div class="vertical-timeline-item vertical-timeline-element">
                             <div>
                                 <span class="vertical-timeline-element-icon bounce-in">
-                                    <i class="badge badge-dot badge-dot-xl badge-warning"> </i>
+                                    <i class="badge badge-dot badge-dot-xl badge-danger"> </i>
                                 </span>
 
                                 <div class="vertical-timeline-element-content bounce-in">
@@ -250,7 +132,7 @@
                         <div class="vertical-timeline-item vertical-timeline-element">
                             <div>
                                 <span class="vertical-timeline-element-icon bounce-in">
-                                    <i class="badge badge-dot badge-dot-xl badge-warning"> </i>
+                                    <i class="badge badge-dot badge-dot-xl badge-success"> </i>
                                 </span>
                                 <div class="vertical-timeline-element-content bounce-in">
                                     <h4 class="timeline-title">Подготовка к интервью</h4>
@@ -286,50 +168,7 @@
 
 </body>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Function to get URL query parameters
-        function getQueryParams() {
-            const params = {};
-            window.location.search.substring(1).split("&").forEach(function (param) {
-                const pair = param.split("=");
-                params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
-            });
-            return params;
-        }
+<script src="scripts.js"></script>
 
-        // Get the query parameters
-        const params = getQueryParams();
-
-        if (params.date) {
-            // Parse the passed date parameter as UTC
-            const [year, month, day] = params.date.split('-');
-            const startDate = new Date(Date.UTC(year, month - 1, day)); // Create the date using UTC
-
-            // Select all elements with class 'vertical-timeline-element-date'
-            const dateElements = document.querySelectorAll('.vertical-timeline-element-date');
-
-            // Loop through each element and update its content
-            dateElements.forEach(function (element) {
-                // Get the number of days from the data attribute
-                const daysToAdd = parseInt(element.getAttribute('data-days'), 10);
-
-                // Add the days to the start date (JS handles month overflow automatically)
-                const updatedDate = new Date(startDate);
-                updatedDate.setUTCDate(startDate.getUTCDate() + daysToAdd); // Correctly adds days in UTC
-
-                // Format the updated date as dd/mm/yyyy
-                const day = String(updatedDate.getUTCDate()).padStart(2, '0');
-                const month = String(updatedDate.getUTCMonth() + 1).padStart(2, '0'); // Months are 0-indexed
-                const year = updatedDate.getUTCFullYear();
-
-                const formattedDate = `${day}/${month}/${year}`;
-
-                // Update the content of the span
-                element.textContent = formattedDate;
-            });
-        }
-    });
-</script>
 
 </html>
