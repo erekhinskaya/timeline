@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Add jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Add Bootstrap JS and Popper.js -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Add html2canvas library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+
+    <style>
+    </style>
+</head>
+
+<body>
+
+    <div class="row d-flex justify-content-center mt-70 mb-70">
+        <div class="col-md-6">
+            <div style="position: relative;">
+                <div class="main-card mb-3 card">
+                    <div class="card-body" id="timeline-card">
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title" id="timeline-title"></h5>
+                        </div>
+
+                        <!-- Timeline Section -->
+                        <div id="timeline-section"
+                            class="vertical-timeline vertical-timeline--animate vertical-timeline--one-column">
+
+                        </div> <!-- End of timeline section -->
+
+
+                    </div>
+
+                </div>
+                <!-- Download Button Positioned on Top Right of Timeline Section -->
+                <button id="download-btn" class="btn btn-primary">Download</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="timeline-data.js"></script>
+<script src="scripts.js"></script>
+
+
+</html>

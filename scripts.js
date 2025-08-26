@@ -22,6 +22,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Get the query parameters
     const params = getQueryParams();
+    const timelineType = params.type || 'asylum'; // Default to 'asylum' if no type is specified
+    const timeline = timelineData[timelineType];
+
+    if (timeline) {
+        // Set timeline title
+        document.getElementById('timeline-title').textContent = timeline.title;
+
+        // Generate timeline events
+        const timelineSection = document.getElementById('timeline-section');
+        timeline.events.forEach(event => {
+            const eventElement = document.createElement('div');
+            eventElement.className = 'vertical-timeline-item vertical-timeline-element';
+            eventElement.innerHTML = `
+                <div>
+                    <span class="vertical-timeline-element-icon bounce-in">
+                        <i class="badge badge-dot badge-dot-xl ${event.badge}"> </i>
+                    </span>
+                    <div class="vertical-timeline-element-content bounce-in">
+                        <h4 class="timeline-title">${event.title}</h4>
+                        <p>${event.description}</p>
+                        <span class="vertical-timeline-element-date" data-days="${event.days}"></span>
+                    </div>
+                </div>
+            `;
+            timelineSection.appendChild(eventElement);
+        });
+    }
 
     if (params.date) {
         // Parse the passed date parameter as UTC
@@ -52,4 +79,3 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
-

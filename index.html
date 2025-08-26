@@ -4,81 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Генератор Таймлайна</title>
-    <style>
-        /* Overall Styling */
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        /* Centered container for inputs */
-        .input-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        /* Label Styling */
-        label {
-            font-size: 1rem;
-            color: #333;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        /* Date Picker */
-        #datePicker {
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            width: 100%;
-            max-width: 100%;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Selector Dropdown */
-        #optionSelector {
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            width: 100%;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            background-color: #fff;
-        }
-
-        /* Button Styling */
-        button {
-            padding: 12px 20px;
-            font-size: 16px;
-            color: #fff;
-            background-color: #4CAF50;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            width: 100%;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -93,9 +19,9 @@
         <!-- Selector -->
         <label for="optionSelector">Выберите типа кейса:</label>
         <select id="optionSelector">
-            <option value="timeline_asylum.html">Убежище</option>
-            <!--<option value="timeline_mandamus_with_story.html">Мандамус с поданой историей</option>-->
-            <option value="timeline_mandamus.html">Мандамус</option>
+            <option value="asylum">Убежище</option>
+            <option value="mandamus_with_story">Мандамус с поданой историей</option>
+            <option value="mandamus">Мандамус</option>
         </select>
 
         <!-- Button -->
@@ -107,7 +33,6 @@
         const datePicker = document.getElementById('datePicker');
         const today = new Date().toISOString().split('T')[0];
         datePicker.value = today;
-        //datePicker.min = today;
 
         // Function to redirect to selected page with date as parameter
         function redirectToPage() {
@@ -115,8 +40,8 @@
             const selectedOption = document.getElementById('optionSelector').value;
 
             if (selectedDate && selectedOption) {
-                // Redirect to the selected page with date parameter
-                window.location.href = `${selectedOption}?date=${selectedDate}`;
+                // Redirect to the selected page with date and type parameters
+                window.location.href = `timeline.html?type=${selectedOption}&date=${selectedDate}`;
             } else {
                 alert('Пожалуйста, выберите дату и опцию.');
             }
