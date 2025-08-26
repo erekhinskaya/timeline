@@ -207,3 +207,19 @@ body {
             padding: 5px 10px;
             font-size: 12px;
         }
+
+        .vertical-timeline.no-dates::before {
+            left: 20px;
+        }
+
+        .vertical-timeline.no-dates .vertical-timeline-element-content {
+            margin-left: 60px;
+        }
+
+        .vertical-timeline.no-dates .vertical-timeline-element-icon {
+            left: 13px;
+        }
+
+        .vertical-timeline.no-dates .vertical-timeline-element-date {
+            display: none;
+        }
